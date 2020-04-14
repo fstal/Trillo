@@ -85,6 +85,9 @@
   & > *:hover {
     background-color: var(--color-grey-light-2);
   }
+  & > *:active {
+    background-color: var(--color-grey-light-3);
+  }
 
   &__icon-box {
     position: relative;
@@ -123,17 +126,60 @@
 // SIDEBAR NAVIGATION
 
 .side-nav {
+  font-size: 1.4rem;
+  list-style: none;
+  margin-top: 3.5rem;
+
   &__item {
-    list-style: none;
+    position: relative;
+
+    &:not(:last-child) {
+      margin-bottom: 0.5rem;
+    }
   }
 
-  &__link {
+  &__item::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 3px;
+    background-color: var(--color-primary);
+    transform: scaleY(0);
+    transition: transform 0.2s, width 0.4s cubic-bezier(1, 0, 0, 1) 0.2s,
+      background-color 0.1s; // .2s delay!
+  }
+
+  &__item:hover::before,
+  &__item--active:before {
+    transform: scaleY(1);
+    width: 100%;
+  }
+
+  &__item:active::before {
+    background-color: var(--color-primary-light);
+  }
+
+  &__link:link,
+  &__link:visited {
+    color: var(--color-grey-light-1);
     text-decoration: none;
+    text-transform: uppercase;
+    display: block;
+    padding: 1.5rem 3rem;
+    z-index: 10;
+    position: relative;
+
+    display: flex;
+    align-items: center;
   }
 
   &__icon {
     height: 1.75rem;
     width: 1.75rem;
+    fill: currentColor; // current color is basically just the color of the current or parent element
+    margin-right: 2rem;
   }
 }
 
